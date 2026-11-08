@@ -6,10 +6,10 @@ metadata:
   name: otel-collector
   namespace: otel-collector
   annotations:
-    promo.twallac10.dev/chart-version: 0.0.0
+    promo.twallac10.dev/chart-version: 0.178.2-1
 spec:
   ref:
-    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000
+    digest: sha256:696edced59dff5866f068c74822f3ae747afbd288874322b9c337d36041d93dd
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
