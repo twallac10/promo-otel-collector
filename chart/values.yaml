@@ -1,1 +1,25 @@
-{}
+# Baked into the wrapper chart (part of what we test and promote).
+opentelemetry-collector:
+  fullnameOverride: otel-collector
+  mode: deployment
+  image:
+    # The -k8s distribution: no prometheus exporter (LESSONS #15); config is
+    # checked against this image by tests/test_app.sh.
+    repository: otel/opentelemetry-collector-k8s
+    tag: 0.163.2
+  resources:
+    requests: {cpu: 20m, memory: 64Mi}
+    limits: {memory: 256Mi}
+  ports:
+    metrics:
+      enabled: true
+    health:
+      enabled: true
+      containerPort: 13133
+      servicePort: 13133
+      protocol: TCP
+
+# Our Helm tests.
+promoTest:
+  image: alpine/kubectl:1.37.2@sha256:1a7fc3308a8eee1c8bd177930fc521088c6dc64ad8b68c88319151fd87d79deb
+  host: otel-collector.otel-collector.svc

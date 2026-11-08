@@ -1,8 +1,8 @@
 # Upstream chart source and pinned version. Changing this on main triggers the
 # mirror workflow, which builds chart/ and opens a PR for the first tier.
 upstream:
-  repo: https://otel-collector.invalid/charts
-  chart: otel-collector
-  version: 0.0.0
+  repo: https://open-telemetry.github.io/opentelemetry-helm-charts
+  chart: opentelemetry-collector
+  version: 0.178.2
 wrapper:
   name: promo-otel-collector
