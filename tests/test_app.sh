@@ -4,6 +4,7 @@ test_otel_validate() {
   d=$(mktemp -d); otel_config > "$d/relay.yaml"
   [ -s "$d/relay.yaml" ] || fail "no collector config rendered"
   img=$(render dev | yq 'select(.kind=="Deployment") | .spec.template.spec.containers[0].image')
+  chmod -R a+rX "$d" # the image runs as non-root; mktemp -d is 0700 on Linux
   docker run --rm -e MY_POD_IP=127.0.0.1 -v "$d:/cfg:ro" "$img" validate --config=/cfg/relay.yaml
 }
 
