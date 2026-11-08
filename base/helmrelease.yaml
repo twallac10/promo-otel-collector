@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: example
-  namespace: example
+  name: otel-collector
+  namespace: otel-collector
 spec:
   interval: 10m
-  releaseName: example
+  releaseName: otel-collector
   chartRef:
     kind: OCIRepository
-    name: example
+    name: otel-collector
   install:
     remediation:
       retries: 0

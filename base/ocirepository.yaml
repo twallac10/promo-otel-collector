@@ -2,11 +2,11 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: example
-  namespace: example
+  name: otel-collector
+  namespace: otel-collector
 spec:
   interval: 5m
-  url: oci://ghcr.io/twallac10/charts/promo-example
+  url: oci://ghcr.io/twallac10/charts/promo-otel-collector
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
