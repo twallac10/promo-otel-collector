@@ -10,4 +10,8 @@ spec:
     remediation:
       retries: 0
       remediateLastFailure: false
-  values: {}
+  values:
+    opentelemetry-collector:
+      ports:
+        health:
+          enabled: false
