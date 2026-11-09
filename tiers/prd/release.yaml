@@ -17,6 +17,10 @@ metadata:
   name: otel-collector
   namespace: otel-collector
   annotations:
-    event.toolkit.fluxcd.io/release-id: sha256:8b83c18f328bf12244b086c4c070b9d13272c75cb5e67708a5c46a29ae034ec4
+    event.toolkit.fluxcd.io/release-id: sha256:f8eb99802e8e6d2a77862fab31675f55c13827145c8ccf78f973dcdbd374213a
 spec:
-  values: {}
+  values:
+    opentelemetry-collector:
+      resources:
+        requests:
+          cpu: 30m
