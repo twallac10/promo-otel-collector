@@ -16,5 +16,7 @@ kind: HelmRelease
 metadata:
   name: otel-collector
   namespace: otel-collector
+  annotations:
+    event.toolkit.fluxcd.io/release-id: sha256:8b83c18f328bf12244b086c4c070b9d13272c75cb5e67708a5c46a29ae034ec4
 spec:
   values: {}
