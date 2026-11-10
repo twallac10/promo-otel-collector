@@ -2,7 +2,7 @@ apiVersion: v2
 name: promo-otel-collector
 description: Wrapper chart. Upstream chart as a dependency plus our Helm tests.
 type: application
-version: 0.178.2-1
+version: 0.178.2-2
 dependencies:
   - name: opentelemetry-collector
     version: 0.178.2

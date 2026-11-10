@@ -17,5 +17,6 @@ test_otel_service_ports() {
 
 test_otel_tests() {
   hooks=$(render dev | test_hooks | yq 'select(.kind=="Pod") | .metadata.name' | grep -v -- '---' | sort | tr '\n' ' ')
-  [ "$hooks" = "otel-collector-test-health otel-collector-test-spans " ] || fail "test pods: $hooks"
+  [ "$hooks" = "otel-collector-test-health " ] || fail "smoke test pods (Helm): $hooks"
+  [ "$(check_names | tr '\n' ' ')" = "accepted-spans " ] || fail "behaviour checks (Testkube): $(check_names)"
 }

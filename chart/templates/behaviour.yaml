@@ -1,0 +1,14 @@
+{{- /* Behaviour tests (Testkube): send one span over OTLP/HTTP; the collector must count it as accepted. */}}
+{{- define "otel.check.accepted-spans" -}}
+span='{"resourceSpans":[{"resource":{"attributes":[{"key":"service.name","value":{"stringValue":"promo-behaviour-test"}}]},"scopeSpans":[{"spans":[{"traceId":"5b8efff798038103d269b633813fc60c","spanId":"eee19b7ec3c1b174","name":"promo-behaviour-test","kind":1,"startTimeUnixNano":"1","endTimeUnixNano":"2"}]}]}]}'
+for i in $(seq 1 30); do
+  curl -fsS -H 'Content-Type: application/json' -d "$span" http://{{ .Values.promoTest.host }}:4318/v1/traces >/dev/null || { echo "attempt $i: send failed"; sleep 3; continue; }
+  n=$(curl -fsS http://{{ .Values.promoTest.host }}:8888/metrics | grep '^otelcol_receiver_accepted_spans' | grep -v ' 0$' | head -1)
+  [ -n "$n" ] && { echo "PASS: $n"; exit 0; }
+  echo "attempt $i: no accepted spans yet"; sleep 3
+done
+echo "FAIL: accepted-spans metric missing or zero"; exit 1
+{{- end -}}
+{{ include "promo.behaviour" (dict "ctx" . "checks" (list
+  (dict "name" "accepted-spans" "script" (include "otel.check.accepted-spans" .))
+)) }}
